@@ -5,6 +5,7 @@ syntax = "proto3";
 option go_package = "github.com/kytruong0712/goffee-shop/grpc-service/protogen/golang/orders";
 
 import "products/product.proto";
+import "google/api/annotations.proto";
 import "google/api/date.proto";
 
 message Order {
@@ -22,5 +23,10 @@ message PayloadWithSingleOrder {
   Order order = 1;
 }
 service Orders {
-  rpc AddOrder(PayloadWithSingleOrder) returns (Empty) {}
+  rpc AddOrder(PayloadWithSingleOrder) returns (Empty) {
+    option (google.api.http) = {
+      post: "/v0/orders",
+      body: "*"
+    };
+  }
 }
